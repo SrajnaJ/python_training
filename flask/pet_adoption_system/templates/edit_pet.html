@@ -1,0 +1,7 @@
+<h1>Edit your pet details: </h1>
+<form action="{{ url_for('update', pet_id=pet.id) }}" method="POST">
+    <input type="text" name="name" value="{{ pet.name }}" required>
+    <input type="text" name="species" value="{{ pet.species }}" required>
+    <input type="number" name="age" value="{{ pet.age }}" required>
+    <button type="submit">Update Pet</button>
+</form>

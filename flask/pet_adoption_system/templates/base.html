@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Application</title>
+</head>
+<body>
+    <h1>Pet Adoption App</h1>
+    <form action="/add" method="POST">
+        <div>
+            <label for="name">Pet name</label>
+            <input type="text" name="name" placeholder="Enter name of the pet">
+            <br><br>
+            <label for="species">Species</label>
+            <input type="text" name="species" placeholder="Dog: Golden Retriever">
+            <br><br>
+            <label for="age">Age</label>
+            <input type="text" name="age" placeholder="Enter age of the pet(in yrs)">
+            <br><br>
+
+            <button type="submit">Add</button>
+        </div>
+    </form>
+
+    {% for pet in pet_list %}
+        <br>
+        <li>
+            <strong>{{ pet.name }}</strong> ({{ pet.species }}, Age: {{ pet.age }})
+        </li>
+        <br>
+
+        <a href="{{url_for('edit',pet_id=pet.id)}}">Edit</a>
+        <a href="/delete/{{pet.id}}">Delete</a>
+        <br>
+    {% endfor %}
+</body>
+</html>
