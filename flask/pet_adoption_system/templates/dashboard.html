@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Application</title>
+</head>
+<body>
+    <h1 style="color: darkslategray; text-align: center;">Pet Adoption App</h1>
+    <form style="position: absolute; top: 10px; right: 20px;padding: 10px"  action="{{ url_for('logout') }}" method="POST">
+        <button style="font-size: 14px; color: black; border:none" type="submit">Logout</button>
+    </form>
+    
+    <form style="background-color: #f4f4f4; padding: 20px; border-radius: 10px; width: 300px;" action="/add" method="POST">
+        <div>
+            <label for="name">Pet name</label>
+            <input type="text" name="name" placeholder="Enter name of the pet" style="padding: 8px; border-radius: 5px; border: none;">
+            <br><br>
+            <label for="species">Species</label>
+            <input type="text" name="species" placeholder="Dog: Golden Retriever" style="padding: 8px; border-radius: 5px; border: none;">
+            <br><br>
+            <label for="age">Age</label>
+            <input type="text" name="age" placeholder="Enter age of the pet(in yrs)" style="padding: 8px; border-radius: 5px; border: none;">
+            <br><br>
+
+            <button style="background-color: green; color: white; padding: 10px 20px; border: none; border-radius:8px; cursor: pointer;" type="submit">Add</button>
+        </div>
+    </form>
+
+    {% for pet in pet_list %}
+        <br>
+        <li>
+            <strong>{{ pet.name }}</strong>  ({{ pet.species }}, Age: {{ pet.age }})
+        </li>
+        <br>
+
+        <a style="padding: 10px 20px; text-decoration: none; color: darkblue;" href="{{url_for('edit',pet_id=pet.id)}}">Edit</a>
+        <a style="text-decoration: none; color: red;" href="/delete/{{pet.id}}">Delete</a>
+        <br>
+    {% endfor %}
+</body>
+</html>

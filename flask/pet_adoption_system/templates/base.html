@@ -3,36 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Adoption Application</title>
+    <title>{% block title %}Pet Adoption{% endblock %}</title>
 </head>
 <body>
-    <h1 style="color: darkslategray; text-align: center;">Pet Adoption App</h1>
-    <form style="background-color: #f4f4f4; padding: 20px; border-radius: 10px; width: 300px;" action="/add" method="POST">
-        <div>
-            <label for="name">Pet name</label>
-            <input type="text" name="name" placeholder="Enter name of the pet" style="padding: 8px; border-radius: 5px; border: none;">
-            <br><br>
-            <label for="species">Species</label>
-            <input type="text" name="species" placeholder="Dog: Golden Retriever" style="padding: 8px; border-radius: 5px; border: none;">
-            <br><br>
-            <label for="age">Age</label>
-            <input type="text" name="age" placeholder="Enter age of the pet(in yrs)" style="padding: 8px; border-radius: 5px; border: none;">
-            <br><br>
-
-            <button style="background-color: green; color: white; padding: 10px 20px; border: none; border-radius:8px; cursor: pointer;" type="submit">Add</button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Pet Adoption</a>
+            <ul class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Signup</a></li>
+                {% endif %}
+            </ul>
         </div>
-    </form>
-
-    {% for pet in pet_list %}
-        <br>
-        <li>
-            <strong>{{ pet.name }}</strong>  ({{ pet.species }}, Age: {{ pet.age }})
-        </li>
-        <br>
-
-        <a style="padding: 10px 20px; text-decoration: none; color: darkblue;" href="{{url_for('edit',pet_id=pet.id)}}">Edit</a>
-        <a style="text-decoration: none; color: red;" href="/delete/{{pet.id}}">Delete</a>
-        <br>
-    {% endfor %}
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
